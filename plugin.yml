@@ -2,5 +2,5 @@ name: BossBar
 api: [3.9]
 version: 1.2
 load: STARTUP
-author: ImpladeDeveloped Team
+author: ImpladeDeveloped Team (Update By TheNote)
 main: BossBar\Main
