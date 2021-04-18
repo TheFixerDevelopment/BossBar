@@ -1,13 +1,10 @@
 ---
 # BOSSBAR CONFIGURATION #
 # ===================== #
-head-message: "BossBar"
+head-message: "BossBar fix by TheNote"
 changing-messages:
-- "{100%} Message 1"
-- "{80%} Message 2"
-- "{60%} Message 3"
-- "{40%} Message 4"
-- "{20%} Message 5"
-change-speed: 8
-worlds: []
+  - "{0%}§l§eSet this bar announcements on config.yml file!"
+change-speed: 20 #20 is 1 Second  -> Dont Work...
+worlds: ["lobby", "world"]
+mode: 2
 ...
