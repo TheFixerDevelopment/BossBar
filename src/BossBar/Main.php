@@ -8,7 +8,6 @@ use pocketmine\level\Level;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
-use BossBar\Main;
 
 class Main extends PluginBase implements Listener{
 
@@ -23,8 +22,8 @@ class Main extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->headBar = $this->getConfig()->get('head-message', '');
 		$this->cmessages = $this->getConfig()->get('changing-messages', []);
-		$this->changeSpeed = $this->getConfig()->get('change-speed', 0);
-		if ($this->changeSpeed > 0) $this->getScheduler()->scheduleRepeatingTask(new SendTask($this), 20 * $this->changeSpeed);
+		$this->changeSpeed = $this->getConfig()->get('change-speed', 20);
+        if ($this->changeSpeed >= 0) $this->getScheduler()->scheduleRepeatingTask(new SendTask($this), $this->changeSpeed);
 	}
 	public static function getInstance(){
 		return self::$instance;
@@ -36,7 +35,7 @@ class Main extends PluginBase implements Listener{
 	public function onJoin(PlayerJoinEvent $ev){
 		if (in_array($ev->getPlayer()->getLevel(), $this->getWorlds())){
 			if ($this->entityRuntimeId === null){
-				$this->entityRuntimeId = API::addBossBar([$ev->getPlayer()], 'Please wait loading BossBar...');
+				$this->entityRuntimeId = API::addBossBar([$ev->getPlayer()], 'Please wait loading BossBar... Rejoin for see the Bossbar');
 				$this->getServer()->getLogger()->debug($this->entityRuntimeId === NULL ? 'Couldn\'t add BossBar' : 'Successfully added BossBar with EID: ' . $this->entityRuntimeId);
 			} else{
 				API::sendBossBarToPlayer($ev->getPlayer(), $this->entityRuntimeId, $this->getText($ev->getPlayer()));
@@ -56,7 +55,8 @@ class Main extends PluginBase implements Listener{
 		}
 	}
 
-	public function getText(Player $player){
+	public function getText(Player $player): string
+    {
 		$text = '';
 		if (!empty($this->headBar)) $text .= $this->formatText($player, $this->headBar) . "\n" . "\n" . TextFormat::RESET;
 		$currentMSG = $this->cmessages[$this->i % count($this->cmessages)];

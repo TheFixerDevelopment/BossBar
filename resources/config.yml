@@ -1,12 +1,10 @@
 ---
 # BOSSBAR CONFIGURATION #
 # ===================== #
-head-message: "BossBar"
+head-message: "BossBar fix by TheNote"
 changing-messages:
- - "{0%}§l§eSet this bar announcements on config.yml file!"
- - "{10%}§l§eWhat are you waiting for?"
- - "{50%}§l§cLooks like you're having fun with BossBar"
- - "{100%}§l§cLegends never surrendered"
-change-speed: 8
-worlds: []
+  - "{0%}§l§eSet this bar announcements on config.yml file!"
+change-speed: 20 #20 is 1 Second  -> Dont Work...
+worlds: ["lobby", "world"]
+mode: 2
 ...
